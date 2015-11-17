@@ -23,6 +23,25 @@ RESPONSE 200 OK
     "email": "edysegura@gmail.com"
   }
 ]
+
+
+doc c9
+
+->database
+
+mysql-ctl cli
+
+show databases;
+
+use c9
+
+source schema.sql
+
+show tables;
+
+GET Funcionando
+
+
 */
 $app->get('/guests/', function() use ( $app ) {
     $guests = GuestService::listGuests();
@@ -60,8 +79,8 @@ RESPONSE 200 OK
 
 */
 $app->post('/guests/', function() use ( $app ) {
-    $guestJson = $app->request()->getBody();
-    $newGuest = json_decode($GuestJson, true);
+    $guest = $app->request()->getBody();
+    $newGuest = json_decode($guest, true);
     if($newGuest) {
         $guest = GuestService::add($newGuest);
         echo "Guest {$guest ['name']} added";
@@ -76,8 +95,8 @@ $app->post('/guests/', function() use ( $app ) {
 HTTP PUT
 */
 $app->put('/guests/', function() use ( $app ) {
-    $guestJson = $app->request()->getBody();
-    $updatedGuest = json_decode($guestJson, true);
+    $guest = $app->request()->getBody();
+    $updatedGuest = json_decode($guest, true);
     
     if($updatedGuest && $updatedGuest['id']) {
         if(GuestService::update($updatedGuest)) {
@@ -108,6 +127,10 @@ RESPONSE 404 NOT FOUND
   "status": "false",
   "message": "Guest with x does not exit"
 }
+
+DELETE Funcionando
+
+
 */
 $app->delete('/guests/:id', function($id) use ( $app ) {
     if(GuestService::delete($id)) {
@@ -121,3 +144,4 @@ $app->delete('/guests/:id', function($id) use ( $app ) {
 
 $app->run();
 ?>
+
